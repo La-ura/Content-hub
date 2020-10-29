@@ -153,19 +153,3 @@ function show_article(){
   }
 });
 }
-/*
-function clean_data(article){
-  
-  console.log("dentro de clean");
-        jq2.ajax({
-              url : ajaxurl,
-              type: 'post',
-              data: {
-                action : 'clean_data',
-                datos: article
-              },
-            success: function(resultado){
-              console.log(resultado);
-            }
-        });
-}*/
