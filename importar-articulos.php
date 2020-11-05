@@ -1,7 +1,6 @@
 <?
 /*
-Plugin Name: Importador de artículos del API de televisa
-Plugin URI: https://hubcontent.televisa.xyz/api
+Plugin Name: Content hub
 Description: Importa notas de las agencias :Europress , Notimex ,EFE, Xinhua ,AFP , AP ,DPA , APTN ,Reuters 
 Version:1
 Author:Laura Ramírez
@@ -9,7 +8,8 @@ License: GPL
 */
 // in the main plugin file
 define( 'MYPLUGIN_FILE', __FILE__ );
-register_activation_hook(MYPLUGIN_FILE, 'insert_category' );
+//no se genera categorias para noticieros televisa
+//register_activation_hook(MYPLUGIN_FILE, 'insert_category' );
 add_action('admin_menu', 'add_botton_import_article' );
 /* Guarda en wp el articulo */
 add_action('wp_ajax_nopriv_import_note_from_api','api_save_cont');
@@ -33,19 +33,54 @@ function api_save_cont(){
   $title = clean_field($postArray["title"]);
   $conte = clean_field($postArray["content"]);
   $category = $postArray["category"];
-  $idcategory = get_category_id($category);
-
+  /* Otros sitios  */
+  //$idcategory = get_category_id($category);
+  //** solo para noticieros televisa *//
+  $idcategory = get_taxanomia_nt($category );
+  
   $my_post = array(
     'post_title'    =>  $title ,
     'post_content'  =>   $conte ,
     'post_author'   => get_current_user_id(),
-    'post_category' => array( $idcategory )
+    //'post_category' => array( $idcategory ),
+    'tax_input' => array( 'topico' => array($idcategory)), 
+    'post_type' =>"agencias"  //solo para noticieros televisa
   );
   $id = wp_insert_post( $my_post );
   $url = get_edit_post_link($id , "");
   echo  $url ;
-  //echo "Id" . $id  . " title : ". $title ." body : ".$conte;
+  //echo "Id" . $id  ."   cat ". $idcategory ;
   wp_die();
+}
+// Esta funcion solo es para noticieros televisa
+function get_taxanomia_nt($categorieAgencie){
+      switch ($categorieAgencie) {
+          case 'Ambiente':
+            $term  = get_term_by( 'slug','clima-fenomenos-naturales', 'topico');  
+           $taxonomiaId=$term->term_id;
+          break;
+          case 'Deportes':
+             $term  = get_term_by( 'slug','deportes', 'topico');  
+             $taxonomiaId=$term->term_id;
+          break;  
+          case 'Ciencia':
+            $term  = get_term_by( 'slug','ciencia-y-tecnologia', 'topico');  
+            $taxonomiaId=$term->term_id;
+         break; 
+         case 'Tecnologia':
+          $term  = get_term_by( 'slug','tecnologia', 'topico');  
+          $taxonomiaId=$term->term_id;
+       break;  
+        case 'Entretenimiento':
+          $term  = get_term_by( 'slug','entretenimiento-y-espectaculos', 'topico');  
+          $taxonomiaId=$term->term_id;
+        break;
+        case 'Salud':
+          $term  = get_term_by( 'slug','salud', 'topico');  
+          $taxonomiaId=$term->term_id;
+        break;
+      }
+      return $taxonomiaId;
 }
 
 function get_category_id($category_json){
@@ -97,8 +132,10 @@ function get_articles(){
     wp_enqueue_style('note-jquery-ui-style');
     wp_register_style('note-api-styles',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
     wp_enqueue_style('note-api-styles');
-
+   
    ?>
+
+
 <div id="wrap">
 <h1>Content Hub</h1>
 <div id="lb_content_row1">

@@ -66,14 +66,14 @@ h3{
 .tb1{
     float: left;
     /*padding-left: 70px;*/
-    width: 12%;
+    width: 14%;
  
     text-align: center;
    
 }
 .tb2{
     float: left;
-    width: 12%;
+    width: 16%;
   
    margin-left: 15px;
     text-align: center;
@@ -81,8 +81,7 @@ h3{
 }
 .tb3{
     float: left;
-    width: 11%;
-  
+    width: 15%;
     text-align: center;
     margin-left: 15px;
    
@@ -91,7 +90,7 @@ h3{
     float: left;
     margin-left: 15px;
     text-align: center;
-    width: 14%;
+    width: 18%;
    
     
 }
@@ -99,14 +98,14 @@ h3{
     float: left;
     margin-left: 15px;
     text-align: center;
-    width: 13%;
+    width: 18%;
   
    
 }
 .tb6{
    
     width: 5%;
-    margin-left: 15px;
+  
     
     text-align: center;
    float: left;
