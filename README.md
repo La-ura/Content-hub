@@ -1,4 +1,4 @@
-# content hub : Plugin de wp que se conecta al un api para obtener las notas de las agencias
+# Content hub : Plugin de wp que se conecta a un api para obtener las notas de las agencias
 
 1.- Descarga el directorio
 2.- Activa Plugin en wp
