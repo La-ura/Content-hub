@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Plugin Name: Content hub
 Description: Importa notas de las agencias :Europress , Notimex ,EFE, Xinhua ,AFP , AP ,DPA , APTN ,Reuters 
@@ -6,6 +6,7 @@ Version:1
 Author:Laura Ramírez
 License: GPL
 */
+
 // in the main plugin file
 define( 'MYPLUGIN_FILE', __FILE__ );
 //no se genera categorias para noticieros televisa
