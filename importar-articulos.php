@@ -187,6 +187,6 @@ function get_articles(){
     <div id="content-list-notes"></div>
 </div>
 </div>
-   <?
+   <?php
 
 }
