@@ -6,7 +6,6 @@ Version:1
 Author:Laura Ramírez
 License: GPL
 */
-
 // in the main plugin file
 define( 'MYPLUGIN_FILE', __FILE__ );
 //no se genera categorias para noticieros televisa
@@ -139,19 +138,12 @@ function get_articles(){
 
 <div id="wrap">
 <h1>Content Hub</h1>
-<div id="lb_content_row1">
-  <div class ="tb1">T&iacute;tulo   </div>
-  <div class ="tb2">Fecha Inicio</div>
-  <div class ="tb3">Fecha Final</div>
-  <div class ="tb4">Categor&iacute;a</div>
-  <div class ="tb5"> Agencias</div>
-  <div class ="tb6"> Items</div>
-</div>
+
   <div id="lb_content_row2">
-      <div id="lb_cont_title"><input type="text" id="note_title" placeholder="Buscar por t&iacute;tulo" ></div>
-      <div id="lb_date1">  <input type="text" id="date_start" placeholder=" yyy/mm/dd"></div>
-      <div id="lb_date2"> <input type="text" id="date_end" placeholder=" yyy/mm/dd"></div>
-      <div id="lb_category">
+      <div id="lb_cont_title"> <div class="tb1">T&iacute;tulo </div> <input type="text" id="note_title" placeholder="Buscar por t&iacute;tulo" ></div>
+      <div id="lb_date1">  <div class ="tb1">Fecha Inicio</div><input type="text" id="date_start" placeholder=" yyy/mm/dd"></div>
+      <div id="lb_date2"><div class ="tb1">Fecha Final</div> <input type="text" id="date_end" placeholder=" yyy/mm/dd"></div>
+      <div id="lb_category"><div class ="tb1">Categor&iacute;a</div>
         <select name="note_category" id="note_category">
               <option value=""> Selecciona una categor&iacute;a</option>
               <option value="Ambiente">Ambiente</option>
@@ -163,7 +155,7 @@ function get_articles(){
               <option value="Tecnologia">Tecnolog&iacute;a</option>
             </select>
       </div>
-      <div id="lb_agencie">
+      <div id="lb_agencie"><div class ="tb1"> Agencias</div>
         <select name="note_agencie" id="note_agencie">
               <option value="">Selecciona una agencia</option>
               <option value="afp">AFP</option>
@@ -178,7 +170,7 @@ function get_articles(){
         </select> 
       </div>
 
-      <div id="lb_itmes"> 
+      <div id="lb_itmes"> <div class ="tb1"> Items</div>
       <select name="note_items" id="note_items">
               <option value="20">20</option>
               <option value="40">40</option>
