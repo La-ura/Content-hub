@@ -8,14 +8,12 @@ License: GPL
 */
 // in the main plugin file
 define( 'MYPLUGIN_FILE', __FILE__ );
-//no se genera categorias para noticieros televisa
+//** no se genera categorias para noticieros televisa
 //register_activation_hook(MYPLUGIN_FILE, 'insert_category' );
 add_action('admin_menu', 'add_botton_import_article' );
 /* Guarda en wp el articulo */
-add_action('wp_ajax_nopriv_import_note_from_api','api_save_cont');
 add_action('wp_ajax_import_note_from_api','api_save_cont');
 /* Limpia campos de caracteres no validos */
-add_action('wp_ajax_nopriv_clean_data','clean_fields');
 add_action('wp_ajax_clean_data','clean_fields');
 
 function add_botton_import_article(){
@@ -33,20 +31,20 @@ function api_save_cont(){
   $title = clean_field($postArray["title"]);
   $conte = clean_field($postArray["content"]);
   $category = $postArray["category"];
-  /* Otros sitios  */
-  //$idcategory = get_category_id($category);
-  //** solo para noticieros televisa *//
-  $idcategory = get_taxanomia_nt($category );
+  $source =  $postArray["source"];
+  //$idcategory = get_category_id($category); /*No aplica para NT  */
+  $idcategory = get_taxanomia_nt($category ); //** Solo para noticieros televisa *//
   
   $my_post = array(
     'post_title'    =>  $title ,
     'post_content'  =>   $conte ,
     'post_author'   => get_current_user_id(),
-    //'post_category' => array( $idcategory ),
-    'tax_input' => array( 'topico' => array($idcategory)), 
-    'post_type' =>"agencias"  //solo para noticieros televisa
+    //'post_category' => array( $idcategory ), /**Este campo NO aplica a NT */
+    'tax_input' => array( 'topico' => array($idcategory)),  /** Este campo SOLO aplica para NT */
+    'post_type' =>"agencias"  //SOLO para NT
   );
   $id = wp_insert_post( $my_post );
+  add_post_meta( $id , "autor_noticia", $source );
   $url = get_edit_post_link($id , "");
   echo  $url ;
   //echo "Id" . $id  ."   cat ". $idcategory ;
@@ -126,8 +124,6 @@ function get_articles(){
     wp_enqueue_script("jquery-ui-button");
     wp_enqueue_script("jquery-ui-dialog");
     wp_enqueue_script("import-article-api" ,  plugin_dir_url( __FILE__ ) . 'js/import-article-api.js');
-    //wp_register_style('note-jquery-ui-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/blitzer/jquery-ui.css', false, null);
-    //  wp_enqueue_style('note-jquery-ui-style');
     wp_register_style('note-jquery-ui-style',   plugin_dir_url( __FILE__ ) . 'css/jquery-ui-blitzer.css' );
     wp_enqueue_style('note-jquery-ui-style');
     wp_register_style('note-api-styles',  plugin_dir_url( __FILE__ ) . 'css/style.css' );
@@ -187,6 +183,4 @@ function get_articles(){
     <div id="content-list-notes"></div>
 </div>
 </div>
-   <?php
-
-}
+   <?php } ?>
